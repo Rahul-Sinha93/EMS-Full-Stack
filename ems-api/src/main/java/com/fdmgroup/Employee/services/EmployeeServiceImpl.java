@@ -32,12 +32,17 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         List<Employee> employees = employeeEntities
                                     .stream()
-                                    .map(emp -> new Employee(
-                                            emp.getId(),
-                                            emp.getFirstName(),
-                                            emp.getLastName(),
-                                            emp.getEmailId()))
-                                    .collect(Collectors.toList());
+//                                    .map(emp -> new Employee(
+//                                            emp.getId(),
+//                                            emp.getFirstName(),
+//                                            emp.getLastName(),
+//                                            emp.getEmailId()))
+//                                    .collect(Collectors.toList());
+                .map(employeeEntity -> {
+                    Employee employee = new Employee();
+                    BeanUtils.copyProperties(employeeEntity,employee);
+                    return employee;
+                }).collect(Collectors.toList());
 
         return employees;
     }
